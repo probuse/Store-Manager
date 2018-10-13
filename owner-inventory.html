@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li><a href="index.html"><d1>Logout</d1></a></li>
+            <li><a href="#"><img src="images/avatar.png" alt="" class="avatar-favicon"><d1>Hello Aretha</d1></a></li>
+
+        </ul>
+    </nav>
+    <div id="side-menu" class="side-nav">
+
+        <a href="dashboard.html" ><img src="images/home.png" alt="" class="favicon"> <span id="side-menu-link">Dashboard</span></a>
+        <br>
+        <a href="attendant-inventory.html" ><img src="images/inventory.png" alt="" class="favicon"><span id="side-menu-link2">Attendant-Inventory</span></a>
+        <br>
+        <a href="owner-inventory.html" class="active"><img src="images/inventory.png" alt="" class="favicon"><span id="side-menu-link4">Owner-Inventory</span></a>
+        <br>
+        <a href="reports.html" ><img src="images/reports.png" alt="" class="favicon"><span id="side-menu-link3">Reports</span></a>
+        <br>
+        <a href="cart.html" ><img src="images/cart.png" alt="" class="favicon"><span id="side-menu-link5">Cart</span></a>
+    </div>
+    <div id="main">
+        <span class="navbartoggle opened" id="open-slide" style="font-size:30px;cursor:pointer;margin-top:-80px;position:absolute;">
+            &#9776;
+        </span>
+        <div id="main">
+        <label id="report-label">Inventory</label>
+        <br>
+        <input type="text" id="myInput"  placeholder="Filter inventory.">
+        <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Product Name</th>
+              <th>Units Available</th>
+              <th>Price Per Unit</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>
+                    <input type="radio">
+                </td>
+              <td><strong>HP Envy</strong></td>
+              <td>200</td>
+              <td>2000000.00</td>
+
+            </tr>
+            <tr>
+              <td>
+                  <input type="radio">
+              </td>
+              <td><strong>Ram Chips</strong></td>
+              <td>2000</td>
+              <td>40000.00</td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="radio">
+              </td>
+              <td><strong>LG XM-260 Optical Mouse</strong></td>
+              <td>780</td>
+              <td>15000.00</td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="radio">
+              </td>
+              <td><strong>toshiba satellite s55t-c5325-4k</strong></td>
+              <td>48</td>
+              <td>3800000</td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="radio">
+              </td>
+              <td><strong>Acer Aspire R7-572-5893</strong></td>
+              <td>132</td>
+              <td>1200000.00</td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="radio">
+              </td>
+              <td><strong>Lenovo V130</strong></td>
+              <td>48</td>
+              <td>1400000.00</td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="radio">
+              </td>
+              <td><strong>Asus ROG Strix GL703GS</strong></td>
+              <td>12</td>
+              <td>8000000.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="admin-btn">
+            <input type="submit" value="Delete" class="btn-btn-submit">
+            <input type="submit" value="Add" class="btn-btn-submit">
+            <input type="submit" value="Edit" class="btn-btn-submit">
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <nav class="navbar-bottom">
+            <h2>Store Manager © 2018 . All Rights Reserved.</h2>
+    </nav>
+    <script src="js/myscript.js"></script>
+</body>
+</html>
