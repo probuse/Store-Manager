@@ -66,7 +66,7 @@ class Sales(Resource):
                                 'product_id': sale_list.product_id,
                                 'product_name': sale_list.product_name,
                                 'unit_price': sale_list.unit_price,
-                                'quantity': sale_list.quantity,
+                                'quantity': sale_list.quantity
                                 }
                     ans_list.append(req_dict)
             if not ans_list:
@@ -94,7 +94,8 @@ class Sales(Resource):
         if not empty_string_catcher(product_name):
             return {'message': 'Empty values are not allowed'}, 400
         for product_list in products_list:
-            if product_list.product_id != product_id:
+            if product_list.product_id != product_id or product_list.unit_price != unit_price \
+                    or product_list.product_name != data["product_name"]:
                 return {'message': 'non existent product'}, 400
             else:
                 sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
