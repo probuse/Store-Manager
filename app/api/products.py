@@ -88,6 +88,7 @@ class Sales(Resource):
         product_name = data['product_name']
         unit_price = data['unit_price']
         quantity = data['quantity']
+        total = data['quantity'] * data['unit_price']
         if not is_string(product_name):
             return {'message': 'Error:Invalid value for product_name'}, 400
         if not empty_string_catcher(product_name):
@@ -96,7 +97,7 @@ class Sales(Resource):
             if product_list.product_id != product_id:
                 return {'message': 'non existent product'}, 400
             else:
-                sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity))
+                sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
             return {'message': 'sale made'}, 201
 
 
