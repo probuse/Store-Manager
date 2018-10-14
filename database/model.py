@@ -1,13 +1,15 @@
 class Productpoints():
-    def __init__(self, product_id, product_name, price_per_unit):
+    def __init__(self, product_id, product_name, price_per_unit, stock):
         self.product_id = product_id
         self.product_name = product_name
         self.price_per_unit = price_per_unit
+        self.stock = stock
 
     def to_json(self):
         jsondata = {'product_id': self.product_id,
                     'product_name': self.product_name,
                     'price_per_unit': self.price_per_unit,
+                    'stock': self.stock
 
                     }
         return jsondata
