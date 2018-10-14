@@ -29,7 +29,7 @@ class Products(Resource):
                                 }
                     ans_list.append(req_dict)
             if not ans_list:
-                return {'message': 'productnot in inventory'}, 200
+                return {'message': 'product not in inventory'}, 200
             else:
                 return ans_list, 200
         else:
@@ -54,4 +54,40 @@ class Products(Resource):
         return {'message': 'product created'}, 201
 
 
+class Sales(Resource):
+    """This function returns a list of all producst in the inventory"""
+    def get(self, sale_id=0):
+        # response = []
+        # ans_list = []
+        # if (sale_id):
+        #     pass
+        # else:
+        #     for sale_list in sales_list:
+        #         response.append(sale_list.to_json())
+        #     if not response:
+        #         return {'message': 'No product in inventory'}, 200
+        #     return response, 200
+
+    def post(self):
+        """This function lets the administrator add a new product to the inventory"""
+        data = request.get_json()
+        sale_id = len(sales_list) + 1
+        product_id = data['product_id']
+        product_name = data['product_name']
+        unit_price = data['unit_price']
+        quantity = data['quantity']
+        if not is_string(product_name):
+            return {'message': 'Error:Invalid value for product_name'}, 400
+        if not empty_string_catcher(product_name):
+            return {'message': 'Empty values are not allowed'}, 400
+        for product_list in products_list:
+            if product_list.product_id != product_id:
+                return {'message': 'non existent product'}, 400
+            else:
+                sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity))
+            return {'message': 'sale made'}, 201
+
+
 API.add_resource(Products, '/products', '/products/<int:product_id>')
+API.add_resource(Sales, '/sales', '/sales/<int:sale_id>')
+
