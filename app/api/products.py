@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource, Api
 from database.model import Productpoints, Salepoints
-from app_utils import is_string, empty_string_catcher, is_int
+from app_utils import empty_string_catcher
 from app.api import apcn_v1
 
 products_list = []
@@ -46,11 +46,10 @@ class Products(Resource):
         product_name = data['product_name']
         unit_price = data['unit_price']
         stock = data['stock']
-        # if not is_string(product_name) or not is_int(unit_price) or not is_int(stock):
-        #     return {'message': 'Error:Invalid value please review product inputs'}, 400
-        # if not empty_string_catcher(product_name) or not empty_string_catcher(unit_price) \
-        #         or not empty_string_catcher(stock):
-        #     return {'message': 'Empty values are not allowed'}, 400
+        if not isinstance(product_name, str) or not isinstance(unit_price, int) or not isinstance(stock, int):
+            return {'message': 'Error:Invalid value please review product inputs'}, 400
+        if not empty_string_catcher(product_name):
+            return {'message': 'Empty values are not allowed'}, 400
         products_list.append(Productpoints(product_id, product_name, unit_price, stock))
         return {'message': 'product created'}, 201
 
@@ -90,7 +89,7 @@ class Sales(Resource):
         unit_price = data['unit_price']
         quantity = data['quantity']
         total = data['quantity'] * data['unit_price']
-        if not is_string(product_name) or not is_int(product_id) or not is_int(unit_price) or not is_int(quantity):
+        if not isinstance(product_name, str) or not isinstance(product_id, int) or not isinstance(unit_price, int) or not isinstance(quantity, int):
             return {'message': 'Error:Invalid value for product_name'}, 400
         if not empty_string_catcher(product_name):
             return {'message': 'Empty values are not allowed'}, 400
