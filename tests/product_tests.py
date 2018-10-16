@@ -3,13 +3,13 @@ import json
 from app import create_app
 
 user_data = dict(product_name="Acer",
-                            unit_price=19000000,
-                            stock=100)
+                 unit_price=19000000,
+                 stock=100)
+
 
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app()
-
 
     """testing  GET all items in the inventory"""
 
@@ -21,6 +21,8 @@ class FlaskTestCase(unittest.TestCase):
             response_json = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 200)
             self.assertIn("Acer", response_json[0]['product_name'])
+
+    """Products tests"""
 
     """testing  GET a single item in the inventory"""
 
@@ -43,7 +45,29 @@ class FlaskTestCase(unittest.TestCase):
             responseJson = json.loads(response.data.decode())
             self.assertIn('product created', responseJson['message'])
 
+    """Testing for wrong data type inserted"""
+    def test_wrong_data_type(self):
+        with self.app.test_client() as client:
+            response = client.post('/v1/products', content_type='application/json',
+                                   data=json.dumps(dict(product_name="Acer",
+                                                        unit_price="19000000",
+                                                        stock=100)))
+            self.assertEqual(response.status_code, 400)
+            responseJson = json.loads(response.data.decode())
+            self.assertIn('Error:Invalid value please review product inputs', responseJson['message'])
 
+    """Testing for empty space"""
+    def test_empty_space(self):
+        with self.app.test_client() as client:
+            response = client.post('/v1/products', content_type='application/json',
+                                   data=json.dumps(dict(product_name=" ",
+                                                        unit_price=19000000,
+                                                        stock=100)))
+            self.assertEqual(response.status_code, 400)
+            responseJson = json.loads(response.data.decode())
+            self.assertIn('Empty values are not allowed', responseJson['message'])
+
+    """Sales tests"""
 
     if __name__ == '__main__':
         unittest.main()
