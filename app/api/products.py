@@ -14,7 +14,7 @@ API = Api(apcn_v1)
 
 
 class Products(Resource):
-    """This function returns a list of all producst in the inventory"""
+    """This function returns a list of all products in the inventory"""
 
     def get(self, product_id=0):
         response = []
@@ -51,7 +51,7 @@ class Products(Resource):
 
 
 class Sales(Resource):
-    """This function returns a list of all producst in the inventory"""
+    """This function returns a list of all products in the inventory"""
     def get(self, sale_id=0):
         response = []
         ans_list = []
@@ -80,7 +80,8 @@ class Sales(Resource):
         unit_price = data['unit_price']
         quantity = data['quantity']
         total = data['quantity'] * data['unit_price']
-        if not isinstance(product_name, str) or not isinstance(product_id, int) or not isinstance(unit_price, int) or not isinstance(quantity, int):
+        if not isinstance(product_name, str) or not isinstance(product_id, int) or not isinstance(unit_price, int) \
+                or not isinstance(quantity, int):
             return {'message': 'Error:Invalid value for product_name'}, 400
         if not empty_string_catcher(product_name):
             return {'message': 'Empty values are not allowed'}, 400
