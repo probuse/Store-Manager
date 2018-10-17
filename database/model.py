@@ -14,6 +14,13 @@ class Productpoints():
                     }
         return jsondata
 
+    def to_json_id(self):
+        jsondata = {'product_name': self.product_name,
+                    'unit_price': self.unit_price,
+                    'stock': self.stock
+                    }
+        return jsondata
+
 
 class Salepoints():
     def __init__(self, sale_id, product_id, product_name, unit_price, quantity, total):
@@ -27,6 +34,15 @@ class Salepoints():
     def to_json(self):
         jsondata = {'sale_id': self.sale_id,
                     'product_id': self.product_id,
+                    'product_name': self.product_name,
+                    'unit_price': self.unit_price,
+                    'quantity': self.quantity,
+                    'total': self.total
+                    }
+        return jsondata
+
+    def to_json_id(self):
+        jsondata = {'product_id': self.product_id,
                     'product_name': self.product_name,
                     'unit_price': self.unit_price,
                     'quantity': self.quantity,

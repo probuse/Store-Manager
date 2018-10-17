@@ -22,11 +22,7 @@ class Products(Resource):
         if(product_id):
             for product_list in products_list:
                 if product_list.product_id == product_id:
-                    req_dict = {
-                                'product_name': product_list.product_name,
-                                'unit_price': product_list.unit_price,
-                                'stock': product_list.stock,
-                                }
+                    req_dict = (product_list.to_json_id())
                     ans_list.append(req_dict)
             if not ans_list:
                 return {'message': 'product not in inventory'}, 200
@@ -62,12 +58,7 @@ class Sales(Resource):
         if (sale_id):
             for sale_list in sales_list:
                 if sale_list.sale_id == sale_id:
-                    req_dict = {'sale_id': sale_list.sale_id,
-                                'product_id': sale_list.product_id,
-                                'product_name': sale_list.product_name,
-                                'unit_price': sale_list.unit_price,
-                                'quantity': sale_list.quantity
-                                }
+                    req_dict = (sale_list.to_json_id())
                     ans_list.append(req_dict)
             if not ans_list:
                 return {'message': 'product not in inventory'}, 200
