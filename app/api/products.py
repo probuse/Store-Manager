@@ -22,7 +22,7 @@ class Products(Resource):
         if(product_id):
             for product_list in products_list:
                 if product_list.product_id == product_id:
-                    req_dict = {'product_id': product_list.product_id,
+                    req_dict = {
                                 'product_name': product_list.product_name,
                                 'unit_price': product_list.unit_price,
                                 'stock': product_list.stock,
