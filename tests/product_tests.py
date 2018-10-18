@@ -27,6 +27,8 @@ class FlaskTestCase(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn("Acer", response_json[0]['product_name'])
 
+    """"""
+
     """Products tests"""
 
     """testing  GET a single item in the inventory"""

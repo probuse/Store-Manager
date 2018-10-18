@@ -37,20 +37,17 @@ class Products(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
-        try:
-            data = request.get_json()
-            product_id = len(products_list) + 1
-            product_name = data['product_name']
-            unit_price = data['unit_price']
-            stock = data['stock']
-            if not isinstance(product_name, str) or not isinstance(unit_price, int) or not isinstance(stock, int):
-                return {'message': 'Error:Invalid value please review product inputs'}, 400
-            if not empty_string_catcher(product_name):
-                return {'message': 'Empty values are not allowed'}, 400
-            products_list.append(Productpoints(product_id, product_name, unit_price, stock))
-            return {'message': 'product created'}, 201
-        except:
-            return {'message':'Please review columns'}
+        data = request.get_json()
+        product_id = len(products_list) + 1
+        product_name = data['product_name']
+        unit_price = data['unit_price']
+        stock = data['stock']
+        if not isinstance(product_name, str) or not isinstance(unit_price, int) or not isinstance(stock, int):
+            return {'message': 'Error:Invalid value please review product inputs'}, 400
+        if not empty_string_catcher(product_name):
+            return {'message': 'Empty values are not allowed'}, 400
+        products_list.append(Productpoints(product_id, product_name, unit_price, stock))
+        return {'message': 'product created'}, 201
 
 
 class Sales(Resource):
