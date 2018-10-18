@@ -31,11 +31,6 @@ the prompts
 
 Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
 
-# Tests
-
-pip install nose
-
-Run ```nosetests --with-coverage --cover-package=app``` to run all tests with coverage
 
 
 # Author

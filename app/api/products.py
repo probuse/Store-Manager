@@ -67,8 +67,6 @@ class Sales(Resource):
         else:
             for sale_list in sales_list:
                 response.append(sale_list.to_json())
-            if not response:
-                return {'message': 'No product in inventory'}, 200
             return response, 200
 
     def post(self):

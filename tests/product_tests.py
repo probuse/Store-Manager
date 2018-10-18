@@ -42,6 +42,17 @@ class FlaskTestCase(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn("Acer", response_json[0]['product_name'])
 
+    """testing  GET a single item in the inventory"""
+
+    def test_inventory_item_does_not_exist(self):
+        with self.app.test_client() as client:
+            response = client.get("/api/v1/products/2",
+                                  content_type="application/json",
+                                  data=json.dumps(product_data))
+            responseJson = json.loads(response.data.decode())
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('product not in inventory', responseJson['message'])
+
     """testing adding an item to inventory"""
 
     def test_add_new_inventory_item(self):
