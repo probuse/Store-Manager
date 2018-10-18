@@ -22,6 +22,22 @@ To setup,
 6. Install all dependencies in the ```requirements.txt``` to finalise setting up the environment.
 
 
+
+# Build
+
+Run the file run.py``` python run.py ``` in the root directory and follow 
+
+the prompts
+
+Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
+
+# Tests
+
+pip install nose
+
+Run ```nosetests --with-coverage --cover-package=app``` to run all tests with coverage
+
+
 # Author
 Paul Kayongo
 
