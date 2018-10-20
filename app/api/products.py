@@ -17,23 +17,23 @@ class Products(Resource):
     """This function returns a list of all products in the inventory"""
 
     def get(self, product_id=0):
-        response = []
-        ans_list = []
+        product_response = []
+        prod_list = []
         if(product_id):
             for product_list in products_list:
                 if product_list.product_id == product_id:
                     req_dict = (product_list.to_json_id())
-                    ans_list.append(req_dict)
-            if not ans_list:
+                    prod_list.append(req_dict)
+            if not prod_list:
                 return {'message': 'product not in inventory'}, 200
             else:
-                return ans_list, 200
+                return prod_list, 200
         else:
             for product_list in products_list:
-                response.append(product_list.to_json())
-            if not response:
+                product_response.append(product_list.to_json())
+            if not product_response:
                 return {'message': 'No product in inventory'}, 200
-            return response, 200
+            return product_response, 200
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
@@ -53,7 +53,7 @@ class Products(Resource):
 class Sales(Resource):
     """This function returns a list of all products in the inventory"""
     def get(self, sale_id=0):
-        response = []
+        sales_response = []
         ans_list = []
         if (sale_id):
             for sale_list in sales_list:
@@ -66,8 +66,8 @@ class Sales(Resource):
                 return ans_list, 200
         else:
             for sale_list in sales_list:
-                response.append(sale_list.to_json())
-            return response, 200
+                sales_response.append(sale_list.to_json())
+            return sales_response, 200
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""

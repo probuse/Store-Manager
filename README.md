@@ -25,17 +25,15 @@ To setup,
 
 # Build
 
-Run the file run.py``` python run.py ``` in the root directory and follow 
+1. Run the file run.py``` python run.py ``` in the root directory and follow  the prompts
 
-the prompts
-
-Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
+2. Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
 
 # Tests
 
-pip install pytest-cov
+1. pip install pytest-cov
 
-Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
+2. Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
 
 
 # The endpoints:
@@ -48,6 +46,16 @@ Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
 |POST /api/v1/sales  | Post a new sale
 |GET /api/v1/products/<int:sale_id> | Return a single sale
 
+
+# Badges:
+
+## Travis: 
+[![Build Status](https://travis-ci.org/myrdstom/Store-Manager.svg?branch=challenge-2)](https://travis-ci.org/myrdstom/Store-Manager)
+
+## Coveralls:
+[![Coverage Status](https://coveralls.io/repos/github/myrdstom/Store-Manager/badge.svg?branch=challenge-2)](https://coveralls.io/github/myrdstom/Store-Manager?branch=challenge-2)   
+
+## CodeClimate:
 
 
 # Author
