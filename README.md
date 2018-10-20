@@ -5,7 +5,7 @@ This application is meant for use in a single store.
 
 
 
-# Setup
+## Setup
 
 To setup,
 
@@ -23,20 +23,20 @@ To setup,
 
 
 
-# Build
+## Build
 
 1. Run the file run.py``` python run.py ``` in the root directory and follow  the prompts
 
 2. Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
 
-# Tests
+## Tests
 
 1. pip install pytest-cov
 
 2. Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
 
 
-# The endpoints:
+## The endpoints:
 | End Point  | Description |
 | ------------- | ------------- |
 |GET /api/v1/products | Get all products
@@ -47,15 +47,17 @@ To setup,
 |GET /api/v1/products/<int:sale_id> | Return a single sale
 
 
-# Badges:
+## Badges:
 
-## Travis: 
+### Travis: 
 [![Build Status](https://travis-ci.org/myrdstom/Store-Manager.svg?branch=challenge-2)](https://travis-ci.org/myrdstom/Store-Manager)
 
-## Coveralls:
+### Coveralls:
 [![Coverage Status](https://coveralls.io/repos/github/myrdstom/Store-Manager/badge.svg?branch=challenge-2)](https://coveralls.io/github/myrdstom/Store-Manager?branch=challenge-2)   
 
-## CodeClimate:
+
+### CodeClimate:
+[![Maintainability](https://api.codeclimate.com/v1/badges/2715d106d25e7164ae1d/maintainability)](https://codeclimate.com/github/myrdstom/Store-Manager/maintainability)
 
 
 # Author

@@ -20,6 +20,7 @@ class Products(Resource):
         product_response = []
         prod_list = []
         if(product_id):
+            # prod_list =
             for product_list in products_list:
                 if product_list.product_id == product_id:
                     req_dict = (product_list.to_json_id())
