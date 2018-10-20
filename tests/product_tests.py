@@ -16,6 +16,8 @@ class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app()
 
+    """Products tests"""
+
     """testing  GET all items in the inventory"""
 
     def test_get_all_inventory_items(self):
@@ -26,10 +28,6 @@ class FlaskTestCase(unittest.TestCase):
             response_json = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 200)
             self.assertIn("Acer", response_json[0]['product_name'])
-
-    """"""
-
-    """Products tests"""
 
     """testing  GET a single item in the inventory"""
 
