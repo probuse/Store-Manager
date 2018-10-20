@@ -11,10 +11,14 @@ sale_data = dict(product_id=1,
                  unit_price=19000000,
                  quantity=32)
 
+empty_product_data = {}
+
 
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app()
+
+    """Products tests"""
 
     """testing  GET all items in the inventory"""
 
@@ -27,9 +31,16 @@ class FlaskTestCase(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn("Acer", response_json[0]['product_name'])
 
-    """"""
+    """test empty product data"""
 
-    """Products tests"""
+    def test_no_product_in_inventory(self):
+        with self.app.test_client() as client:
+            response = client.get("/api/v1/products/20",
+                                  content_type="application/json",
+                                  data=json.dumps(empty_product_data))
+            response_json = json.loads(response.data.decode())
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('product not in inventory', response_json['message'])
 
     """testing  GET a single item in the inventory"""
 

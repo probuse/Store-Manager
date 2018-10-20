@@ -60,6 +60,6 @@ To setup,
 [![Maintainability](https://api.codeclimate.com/v1/badges/2715d106d25e7164ae1d/maintainability)](https://codeclimate.com/github/myrdstom/Store-Manager/maintainability)
 
 
-# Author
+## Author
 Paul Kayongo
 

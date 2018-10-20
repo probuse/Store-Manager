@@ -38,17 +38,20 @@ class Products(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
-        data = request.get_json()
-        product_id = len(products_list) + 1
-        product_name = data['product_name']
-        unit_price = data['unit_price']
-        stock = data['stock']
-        if not isinstance(product_name, str) or not isinstance(unit_price, int) or not isinstance(stock, int):
-            return {'message': 'Error:Invalid value please review product inputs'}, 400
-        if not empty_string_catcher(product_name):
-            return {'message': 'Empty values are not allowed'}, 400
-        products_list.append(Productpoints(product_id, product_name, unit_price, stock))
-        return {'message': 'product created'}, 201
+        try:
+            data = request.get_json()
+            product_id = len(products_list) + 1
+            product_name = data['product_name']
+            unit_price = data['unit_price']
+            stock = data['stock']
+            if not isinstance(product_name, str) or not isinstance(unit_price, int) or not isinstance(stock, int):
+                return {'message': 'Error:Invalid value please review product inputs'}, 400
+            if not empty_string_catcher(product_name):
+                return {'message': 'Empty values are not allowed'}, 400
+            products_list.append(Productpoints(product_id, product_name, unit_price, stock))
+            return {'message': 'product created'}, 201
+        except:
+            return {'message': 'Please review columns added'}, 400
 
 
 class Sales(Resource):
@@ -72,25 +75,28 @@ class Sales(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
-        data = request.get_json()
-        sale_id = len(sales_list) + 1
-        product_id = data['product_id']
-        product_name = data['product_name']
-        unit_price = data['unit_price']
-        quantity = data['quantity']
-        total = data['quantity'] * data['unit_price']
-        if not isinstance(product_name, str) or not isinstance(product_id, int) or not isinstance(unit_price, int) \
-                or not isinstance(quantity, int):
-            return {'message': 'Error:Invalid value for product_name'}, 400
-        if not empty_string_catcher(product_name):
-            return {'message': 'Empty values are not allowed'}, 400
-        for product_list in products_list:
-            if product_list.product_id != product_id or product_list.unit_price != unit_price \
-                    or product_list.product_name != data["product_name"]:
-                return {'message': 'non existent product'}, 400
-            else:
-                sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
-            return {'message': 'sale made'}, 201
+        try:
+            data = request.get_json()
+            sale_id = len(sales_list) + 1
+            product_id = data['product_id']
+            product_name = data['product_name']
+            unit_price = data['unit_price']
+            quantity = data['quantity']
+            total = data['quantity'] * data['unit_price']
+            if not isinstance(product_name, str) or not isinstance(product_id, int) or not isinstance(unit_price, int) \
+                    or not isinstance(quantity, int):
+                return {'message': 'Error:Invalid value for product_name'}, 400
+            if not empty_string_catcher(product_name):
+                return {'message': 'Empty values are not allowed'}, 400
+            for product_list in products_list:
+                if product_list.product_id != product_id or product_list.unit_price != unit_price \
+                        or product_list.product_name != data["product_name"]:
+                    return {'message': 'non existent product'}, 400
+                else:
+                    sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
+                return {'message': 'sale made'}, 201
+        except:
+            return {'message': 'Please review columns added'}, 400
 
 
 API.add_resource(Products, '/products', '/products/<int:product_id>')
