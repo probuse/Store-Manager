@@ -42,12 +42,12 @@ Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
 | End Point  | Description |
 | ------------- | ------------- |
 
-| GET /api/v1/products | Fetch all the products created
-| GET /api/v1/products/<int:product_id>/ |  Fetch a single product
-| POST /api/v1/products | Create a product
-| POST /api/v1/sales | Post a sale
-| GET /api/v1/sales/<int:sale_id>| Get a single sale
-| GET /api/v1/sales/| Get all sales
+| GET /api/v1/products | Fetch all the products created |
+| GET /api/v1/products/<int:product_id>/ |  Fetch a single product |
+| POST /api/v1/products | Create a product |
+| POST /api/v1/sales | Post a sale |
+| GET /api/v1/sales/<int:sale_id>| Get a single sale |
+| GET /api/v1/sales/| Get all sales |
 
 
 
