@@ -263,10 +263,7 @@ d1{
     display: inline;
 }
 
-@media (max-width: 568px) {
-    .navbar-nav{display: none}
 
-}
 
 /*tables*/
 strong {
@@ -294,7 +291,7 @@ table {
 }
 
 th {
-	background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+	background: #725139;
 	border-left: 1px solid #555;
 	border-right: 1px solid #777;
 	border-top: 1px solid #555;
@@ -360,16 +357,6 @@ tr:last-of-type td:last-child {
 	box-shadow: inset -1px -1px 0 #fff;
 }
 
-tbody:hover td {
-	color: transparent;
-	text-shadow: 0 0 3px #aaa;
-}
-
-tbody:hover tr:hover td {
-	color: #444;
-	text-shadow: 0 1px 0 #fff;
-}
-
 #myInput{
     background-color: #c6c9ce;
     margin-left: 10%;
@@ -384,7 +371,6 @@ tbody:hover tr:hover td {
 
 }
 
-
 /*Checkbox*/
 
  select{
@@ -396,4 +382,9 @@ tbody:hover tr:hover td {
     font-family: Poppins-Regular;
     background-color: transparent;
     color: black;
+}
+
+ @media (max-width: 568px) {
+    .navbar-nav{display: none}
+
 }
