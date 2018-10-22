@@ -31,9 +31,9 @@ To setup,
 
 ## Tests
 
-1. pip install pytest-cov
+1. pip install nose
 
-2. Run ```py.test product_tests.py --cov=app``` to run all tests with coverage
+2. Run ```nosetests --with-coverage --cover-package=app``` to run all tests with coverage
 
 
 ## The endpoints:
@@ -54,10 +54,6 @@ To setup,
 
 ### Coveralls:
 [![Coverage Status](https://coveralls.io/repos/github/myrdstom/Store-Manager/badge.svg?branch=challenge-2)](https://coveralls.io/github/myrdstom/Store-Manager?branch=challenge-2)   
-
-
-### CodeClimate:
-[![Maintainability](https://api.codeclimate.com/v1/badges/2715d106d25e7164ae1d/maintainability)](https://codeclimate.com/github/myrdstom/Store-Manager/maintainability)
 
 
 ## Author
