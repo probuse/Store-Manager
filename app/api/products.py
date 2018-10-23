@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from database.model import Productpoints, Salepoints
 from app_utils import empty_string_catcher
 from app.api import apcn_v1
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 products_list = []
 
@@ -20,7 +21,6 @@ class Products(Resource):
         all_products = []
         single_product = []
         if (product_id):
-            # prod_list =
             for product_list in products_list:
                 if product_list.product_id == product_id:
                     req_dict = (product_list.to_json_id())

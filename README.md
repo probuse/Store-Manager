@@ -1,5 +1,8 @@
 # Store Manager
 
+[![Build Status](https://travis-ci.org/myrdstom/Store-Manager.svg?branch=challenge-2)](https://travis-ci.org/myrdstom/Store-Manager)
+[![Coverage Status](https://coveralls.io/repos/github/myrdstom/Store-Manager/badge.svg?branch=challenge-2)](https://coveralls.io/github/myrdstom/Store-Manager?branch=challenge-2)  
+
 Store Manager is a web application that helps store owners manage sales and product inventory records. 
 This application is meant for use in a single store.
 
@@ -49,10 +52,8 @@ To setup,
 
 ## Badges:
 
-### Travis: 
-[![Build Status](https://travis-ci.org/myrdstom/Store-Manager.svg?branch=challenge-2)](https://travis-ci.org/myrdstom/Store-Manager)
 
-### Coveralls:
+[![Build Status](https://travis-ci.org/myrdstom/Store-Manager.svg?branch=challenge-2)](https://travis-ci.org/myrdstom/Store-Manager)
 [![Coverage Status](https://coveralls.io/repos/github/myrdstom/Store-Manager/badge.svg?branch=challenge-2)](https://coveralls.io/github/myrdstom/Store-Manager?branch=challenge-2)   
 
 

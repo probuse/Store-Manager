@@ -49,3 +49,19 @@ class Salepoints():
                     'total': self.total
                     }
         return jsondata
+
+
+class Registereduser():
+    def __init__(self, user_id, email, password, role):
+        self.user_id = user_id
+        self.email = email
+        self.password = password
+        self.role = role
+
+    def to_json(self):
+        jsondata = {'user_id': self.user_id,
+                    'email': self.email,
+                    'password': self.password,
+                    'role': self.role
+                    }
+        return jsondata
