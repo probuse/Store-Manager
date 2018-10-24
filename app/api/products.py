@@ -18,12 +18,12 @@ class Products(Resource):
 
     def get(self, product_id=0):
         all_products = []
-        single_product = []
         if (product_id):
-            for product_list in products_list:
-                if product_list.product_id == product_id:
-                    req_dict = (product_list.to_json_id())
-                    single_product.append(req_dict)
+            single_product = [product_list.to_json_id() for product_list in products_list
+                              if product_list.product_id == product_id]
+            # for product_list in products_list:
+            #     if product_list.product_id == product_id:
+            #         req_dict = (product_list.to_json_id())
             if not single_product:
                 return {'message': 'product not in inventory'}, 200
             else:

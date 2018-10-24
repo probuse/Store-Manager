@@ -15,12 +15,8 @@ class Sales(Resource):
 
     def get(self, sale_id=0):
         all_sales = []
-        single_sale = []
         if (sale_id):
-            for sale_list in sales_list:
-                if sale_list.sale_id == sale_id:
-                    req_dict = (sale_list.to_json_id())
-                    single_sale.append(req_dict)
+            single_sale = [sale_list.to_json_id() for sale_list in sales_list if sale_list.sale_id == sale_id]
             if not single_sale:
                 return {'message': 'product not in inventory'}, 200
             else:
