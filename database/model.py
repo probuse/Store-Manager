@@ -52,10 +52,9 @@ class Salepoints():
 
 
 class Registereduser():
-    def __init__(self, user_id, username, email, password, is_owner):
+    def __init__(self, user_id, username, password, is_owner):
         self.user_id = user_id
         self.username = username
-        self.email = email
         self.password = password
         self.is_owner = is_owner
 

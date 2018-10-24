@@ -17,17 +17,23 @@ class Products(Resource):
     """This function returns a list of all products in the inventory"""
 
     def get(self, product_id=0):
+        all_products = []
+        # single_product = []
         if (product_id):
-            single_product = [product_list.to_json_id() for product_list in products_list
-                              if product_list.product_id == product_id]
+            single_product = [product_list.to_json_id() for product_list in products_list if product_list.product_id == product_id]
+            # for product_list in products_list:
+            #     if product_list.product_id == product_id:
+            #         req_dict = (product_list.to_json_id())
             if not single_product:
                 return {'message': 'product not in inventory'}, 200
             else:
                 return single_product, 200
         else:
-            if not products_list:
-                return {'message':'There are no items in the inventory'}, 200
-            return products_list, 200
+            for product_list in products_list:
+                all_products.append(product_list.to_json())
+            if not all_products:
+                return {'message': 'No product in inventory'}, 200
+            return all_products, 200
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""

@@ -15,10 +15,9 @@ class SignUp(Resource):
         data = request.get_json()
         user_id = len(users_list) + 1
         username = data['username']
-        email = data['email']
         password = data['password']
         is_owner = data['is_owner']
-        users_list.append(Registereduser(user_id, username, email, password, is_owner))
+        users_list.append(Registereduser(user_id, username, password, is_owner))
         return {'message': 'User registered'}, 201
 
 

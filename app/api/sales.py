@@ -22,9 +22,9 @@ class Sales(Resource):
             else:
                 return single_sale, 200
         else:
-            if not sales_list:
-                return {'message':'The inventory is empty'}, 200
-            return sales_list, 200
+            for sale_list in sales_list:
+                all_sales.append(sale_list.to_json())
+            return all_sales, 200
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
