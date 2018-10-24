@@ -10,7 +10,6 @@ sales_list = []
 API = Api(apsn_v1)
 
 
-
 class Sales(Resource):
     """This function returns a list of all products in the inventory"""
 
@@ -43,7 +42,7 @@ class Sales(Resource):
             total = data['quantity'] * product_list.unit_price
             if not isinstance(product_id, int) or not isinstance(quantity, int):
                 return {'message': 'Error:Invalid value added, please review'}, 400
-            if product_list.product_id != product_id :
+            if product_list.product_id != product_id:
                 return {'message': 'non existent product'}, 400
             else:
                 sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))

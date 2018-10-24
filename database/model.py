@@ -59,11 +59,3 @@ class Registereduser():
         self.password = password
         self.is_owner = is_owner
 
-    def to_json(self):
-        jsondata = {'user_id': self.user_id,
-                    'username':self.username,
-                    'email': self.email,
-                    'password': self.password,
-                    'is_owner': self.is_owner
-                    }
-        return jsondata
