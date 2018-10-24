@@ -132,5 +132,17 @@ class FlaskTestCase(unittest.TestCase):
             responseJson = json.loads(response.data.decode())
             self.assertIn('sale made', responseJson['message'])
 
+    """Registration tests"""
+    def test_register_user(self):
+        with self.app.test_client() as client:
+            response = client.post('/api/v1/signup', content_type='application/json',
+                                   data=json.dumps(dict(username="myrdstom",
+                                                        email="nserekopaul@gmail.com",
+                                                        password="password",
+                                                        is_owner=bool('false'))))
+            self.assertEqual(response.status_code, 201)
+            responseJson = json.loads(response.data.decode())
+            self.assertIn('User registered', responseJson['message'])
+
     if __name__ == '__main__':
         unittest.main()

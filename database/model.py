@@ -52,16 +52,18 @@ class Salepoints():
 
 
 class Registereduser():
-    def __init__(self, user_id, email, password, role):
+    def __init__(self, user_id, username, email, password, is_owner):
         self.user_id = user_id
+        self.username = username
         self.email = email
         self.password = password
-        self.role = role
+        self.is_owner = is_owner
 
     def to_json(self):
         jsondata = {'user_id': self.user_id,
+                    'username':self.username,
                     'email': self.email,
                     'password': self.password,
-                    'role': self.role
+                    'is_owner': self.is_owner
                     }
         return jsondata

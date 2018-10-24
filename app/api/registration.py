@@ -13,12 +13,13 @@ class SignUp(Resource):
 
     def post(self):
         data = request.get_json()
-        user_id = len(users) + 1
+        user_id = len(users_list) + 1
+        username = data['username']
         email = data['email']
         password = data['password']
-        role = data['is_owner']
-        users_list.append(Registereduser(user_id, email, password, role))
-        return {'message': 'User registered'}, 400
+        is_owner = data['is_owner']
+        users_list.append(Registereduser(user_id, username, email, password, is_owner))
+        return {'message': 'User registered'}, 201
 
 
 class Login(Resource):
@@ -28,7 +29,6 @@ class Login(Resource):
         password = data['password']
         is_owner = data['is_owner']
         user_dict = dict(username=username, password=password, is_owner=is_owner)
-
         access_token = create_access_token(identity=user_dict)
         return {'access_token': access_token}, 200
 

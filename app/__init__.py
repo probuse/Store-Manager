@@ -1,9 +1,14 @@
 from flask import Flask, jsonify
 from .api import apcn_v1, apsn_v1, auth_v1
+from flask_jwt_extended import JWTManager
+import datetime
 
 
 def create_app():
     app = Flask(__name__)
+    app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=100)
+    jwt = JWTManager(app)
 
     @app.errorhandler(404)
     def not_found(e):
