@@ -9,9 +9,11 @@
 
 function openSlideMenu() {
     document.getElementById('side-menu').style.width = '250px';
-    document.getElementById('main').style.marginLeft = '250px';
+    document.getElementById('table-container').style.width = '82%';
+    document.getElementById('myInput').style.width = '73.2%';
+    document.getElementById('report-label').style.marginLeft = '4.5%';
+    document.getElementById('main').style.marginLeft = '230px';
     document.getElementById('side-menu-link').style.display='inline-block';
-    document.getElementById('side-menu-link2').style.display='inline-block';
     document.getElementById('side-menu-link3').style.display='inline-block';
     document.getElementById('side-menu-link4').style.display='inline-block';
     document.getElementById('side-menu-link5').style.display='inline-block';
@@ -19,9 +21,10 @@ function openSlideMenu() {
 }
 function closeSlideMenu() {
     document.getElementById('side-menu').style.width = '60px';
+    document.getElementById('table-container').style.width = '90%';
+    document.getElementById('myInput').style.width = '81%';
     document.getElementById('main').style.marginLeft = '60px';
     document.getElementById('side-menu-link').style.display='none';
-    document.getElementById('side-menu-link2').style.display='none';
     document.getElementById('side-menu-link3').style.display='none';
     document.getElementById('side-menu-link4').style.display='none';
     document.getElementById('side-menu-link5').style.display='none';
