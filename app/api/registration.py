@@ -29,7 +29,7 @@ class Login(Resource):
         is_owner = data['is_owner']
         user_dict = dict(username=username, password=password, is_owner=is_owner)
         access_token = create_access_token(identity=user_dict)
-        return {'access_token': access_token}, 200
+        return {'access_token': access_token}, 201
 
 
 api.add_resource(SignUp, '/signup')
