@@ -3,7 +3,6 @@ from flask_restful import Resource, Api
 from database.model import Productpoints, Salepoints
 from app_utils import empty_string_catcher
 from app.api import apcn_v1
-from flask_jwt_extended import jwt_required, get_jwt_identity
 
 products_list = []
 
@@ -36,9 +35,9 @@ class Products(Resource):
                 return {'message': 'No product in inventory'}, 200
             return all_products, 200
 
-    @jwt_required
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
+
         data = request.get_json()
         product_id = len(products_list) + 1
         product_name = data['product_name']
@@ -52,46 +51,8 @@ class Products(Resource):
         return {'message': 'product created'}, 201
 
 
-class Sales(Resource):
-    """This function returns a list of all products in the inventory"""
-
-    def get(self, sale_id=0):
-        all_sales = []
-        single_sale = []
-        if (sale_id):
-            for sale_list in sales_list:
-                if sale_list.sale_id == sale_id:
-                    req_dict = (sale_list.to_json_id())
-                    single_sale.append(req_dict)
-            if not single_sale:
-                return {'message': 'product not in inventory'}, 200
-            else:
-                return single_sale, 200
-        else:
-            for sale_list in sales_list:
-                all_sales.append(sale_list.to_json())
-            return all_sales, 200
-
-    def post(self):
-        """This function lets the administrator add a new product to the inventory"""
-        for product_list in products_list:
-            data = request.get_json()
-            sale_id = len(sales_list) + 1
-            product_id = data['product_id']
-            username = data['username']
-            quantity = data['quantity']
-            total = data['quantity'] * product_list.unit_price
-            if not isinstance(product_id, int) or not isinstance(username, str) \
-                    or not isinstance(quantity, int):
-                return {'message': 'Error:Invalid value added, please review'}, 400
-            if not empty_string_catcher(username):
-                return {'message': 'Empty values are not allowed'}, 400
-            if product_list.product_id != product_id:
-                return {'message': 'non existent product'}, 400
-            else:
-                sales_list.append(Salepoints(sale_id, product_id, username, quantity, total))
-            return {'message': 'sale made'}, 201
 
 
-API.add_resource(Products, '/products/', '/products/<int:product_id>')
-API.add_resource(Sales, '/sales', '/sales/<int:sale_id>')
+
+API.add_resource(Products, '/products', '/products/<int:product_id>')
+
