@@ -28,21 +28,25 @@ class Sales(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
-        for product_list in products_list:
-            data = request.get_json()
-            sale_id = len(sales_list) + 1
-            product_id = data['product_id']
-            product_name = product_list.product_name
-            unit_price = product_list.unit_price
-            quantity = data['quantity']
-            total = data['quantity'] * product_list.unit_price
-            if not isinstance(product_id, int) or not isinstance(quantity, int):
-                return {'message': 'Error:Invalid value added, please review'}, 400
-            if product_list.product_id != product_id:
-                return {'message': 'non existent product'}, 400
-            else:
-                sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
-            return {'message': 'sale made'}, 201
+        try:
+            for product_list in products_list:
+                data = request.get_json()
+                sale_id = len(sales_list) + 1
+                product_id = data['product_id']
+                product_name = product_list.product_name
+                unit_price = product_list.unit_price
+                quantity = data['quantity']
+                total = data['quantity'] * product_list.unit_price
+                if not isinstance(product_id, int) or not isinstance(quantity, int):
+                    return {'message': 'Error:Invalid value added, please review'}, 400
+                if product_list.product_id != product_id:
+                    return {'message': 'non existent product'}, 400
+                else:
+                    sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
+                return {'message': 'sale made'}, 201
+        except Exception as e:
+            print(e)
+            return {'message': "Please review the columns"}, 400
 
 
 API.add_resource(Sales, '/sales', '/sales/<int:sale_id>')
