@@ -6,38 +6,42 @@
 Store Manager is a web application that helps store owners manage sales and product inventory records. 
 This application is meant for use in a single store.
 
-
+##Pre-requisites
+The UI pages are static for now and have no functionality however they can be viewed [here](https://myrdstom.github.io/Store-Manager/)
 
 ## Setup
 
 To setup,
 
-1. Git
+1. You can clone the repository using the link [here](https://github.com/myrdstom/Store-Manager.git)
+    ```
+    $ git clone https://github.com/myrdstom/Store-Manager
+    ```    
 
-2. python 3.6 or higher
+2. Download and install python 3.6 or higher
 
 3. Install pip [here](https://pip.pypa.io/en/stable/installing/)
 
-4. To setup the virtual environment ``` pip install virtualenv venv ```
-
-5. To activate virtual environment ``` venv/scripts/activate ``` 
+4. Switch to the directory that you have just cloned and set up a virtual-environment
+    ```
+    $ cd store manager
+    $ pip install virtualenv
+    $ virtualenv venv
+    $ cd venv/bin/activate    
+    ```    
+    **Note** if you are using windows activate the environment with ```venv/scripts/activate```
+5. Move to the root directory of the project
 
 6. Install all dependencies in the ```requirements.txt``` to finalise setting up the environment.
-
-
+    ```
+    pip install -r requirements.txt   
+    ``` 
 
 ## Build
 
 1. Run the file run.py``` python run.py ``` in the root directory and follow  the prompts
 
 2. Test all endpoints with [POSTMAN](https://www.getpostman.com/apps)
-
-## Tests
-
-1. pip install nose
-
-2. Run ```nosetests --with-coverage --cover-package=app``` to run all tests with coverage
-
 
 ## The endpoints:
 | End Point  | Description |
@@ -49,8 +53,22 @@ To setup,
 |POST /api/v1/sales  | Post a new sale
 |GET /api/v1/products/<int:sale_id> | Return a single sale
 
+## Tests
 
-## Badges:
+1. pip install nose
+
+2. Run ```nosetests --with-coverage --cover-package=app``` to run all tests with coverage
+
+
+## Deployment
+The Python application is hosted on [Heroku](https://store-manager-challenge-2.herokuapp.com/)
+
+##Built with
+The project has been built with the following technologies so far:
+* HTML
+* CSS
+* Javascript
+* Python/Flask
 
 
 ## Author
