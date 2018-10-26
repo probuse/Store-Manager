@@ -1,12 +1,10 @@
 from flask import request
 from flask_restful import Resource, Api
-from database.model import Productpoints, Salepoints
+from database.model import Productpoints
 from app_utils import empty_string_catcher
 from app.api import apcn_v1
 
 products_list = []
-
-sales_list = []
 
 API = Api(apcn_v1)
 
@@ -14,11 +12,9 @@ API = Api(apcn_v1)
 
 
 class Products(Resource):
-    """This function returns a list of all products in the inventory"""
-
     def get(self, product_id=0):
+        """This function returns a list of all products in the inventory or a single product"""
         all_products = []
-        # single_product = []
         if (product_id):
             single_product = [product_list.to_json_id() for product_list in products_list
                               if product_list.product_id == product_id]
@@ -47,7 +43,7 @@ class Products(Resource):
                 return {'message': 'Empty values are not allowed'}, 400
             for product_list in products_list:
                 if product_name in product_list.product_name:
-                    return {"message":"you have already registered this product"}, 400
+                    return {"message": "you have already registered this product"}, 400
             products_list.append(Productpoints(product_id, product_name, unit_price, stock))
             return {'message': 'product created'}, 201
         except Exception as e:
@@ -55,8 +51,4 @@ class Products(Resource):
             return {'message': 'Please review the columns'}, 400
 
 
-
-
-
 API.add_resource(Products, '/products', '/products/<int:product_id>')
-
