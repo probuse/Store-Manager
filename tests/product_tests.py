@@ -174,16 +174,6 @@ class FlaskTestCase(unittest.TestCase):
             responseJson = json.loads(response.data.decode())
             self.assertIn('Error:Invalid value added, please review', responseJson['message'])
 
-    """Testing for non-existent product"""
-
-    def test_selling_non_existent_product(self):
-        with self.app.test_client() as client:
-            response = client.post('/api/v1/sales', content_type='application/json',
-                                   data=json.dumps(dict(product_id=10,
-                                                        quantity=32)))
-            self.assertEqual(response.status_code, 400)
-            responseJson = json.loads(response.data.decode())
-            self.assertIn('non existent product', responseJson['message'])
 
     """Registration tests"""
 
