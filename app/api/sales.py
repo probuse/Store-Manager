@@ -18,7 +18,7 @@ class Sales(Resource):
         if (sale_id):
             single_sale = [sale_list.to_json_id() for sale_list in sales_list if sale_list.sale_id == sale_id]
             if not single_sale:
-                return {'message': 'product not in inventory'}, 200
+                return {'message': 'sale not in inventory'}, 200
             else:
                 return single_sale, 200
         else:
