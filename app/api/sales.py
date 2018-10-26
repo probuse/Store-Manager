@@ -27,6 +27,7 @@ class Sales(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
+
         try:
             for product_list in products_list:
                 data = request.get_json()
@@ -38,11 +39,9 @@ class Sales(Resource):
                 total = data['quantity'] * product_list.unit_price
                 if not isinstance(product_id, int) or not isinstance(quantity, int):
                     return {'message': 'Error:Invalid value added, please review'}, 400
-                if product_list.product_id != product_id:
-                    return {'message': 'non existent product'}, 400
-                else:
+                if product_list.product_id == product_id:
                     sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
-                return {'message': 'sale made'}, 201
+            return {'message': 'sale made'}, 201
         except Exception as e:
             print(e)
             return {'message': "Please review the columns"}, 400
