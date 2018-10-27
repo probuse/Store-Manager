@@ -1,12 +1,12 @@
-from flask import request
-from flask_restful import Resource, Api
-from database.model import Productpoints
-from app_utils import empty_string_catcher
-from app.api import apcn_v1
-
-products_list = []
-
-API = Api(apcn_v1)
+# from flask import request
+# from flask_restful import Resource, Api
+# from database.model import Productpoints
+# from app_utils import empty_string_catcher
+# from app.api import apcn_v1
+#
+# products_list = []
+#
+# API = Api(apcn_v1)
 
 """This class handles the creation and returning of products"""
 
