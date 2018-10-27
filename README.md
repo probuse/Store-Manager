@@ -46,6 +46,8 @@ To setup,
 ## The endpoints:
 | End Point  | Description |
 | ------------- | ------------- |
+|GET /api/v1/signup | Register a new user
+|POST /api/v1/login  | Login a new user
 |GET /api/v1/products | Get all products
 |POST /api/v1/products  | Post a new product
 |GET /api/v1/products/<int:product_id> | Return a single product
