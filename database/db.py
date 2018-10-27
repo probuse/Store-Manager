@@ -36,18 +36,18 @@ class DBHandler:
                     "product_id SERIAL PRIMARY KEY , " \
                     "username varchar NOT NULL UNIQUE, " \
                     "product_name varchar NOT NULL UNIQUE, " \
-                    "unit_price INTEGER NOT NULL, " \
-                    "stock INTEGER NOT NULL)"
+                    "unit_price INT NOT NULL, " \
+                    "stock INT NOT NULL)"
         self.cur.execute(statement)
 
     def create_sales_table(self):
         statement = "CREATE TABLE IF NOT EXISTS sales (" \
                     "sale_id SERIAL PRIMARY KEY , " \
-                    "product_id SERIAL PRIMARY KEY , " \
+                    "product_id  INT NOT NULL , " \
                     "username varchar NOT NULL UNIQUE, " \
                     "product_name varchar NOT NULL UNIQUE, " \
-                    "quantity INTEGER NOT NULL UNIQUE, " \
-                    "total INTEGER NOT NULL)"
+                    "quantity INT NOT NULL UNIQUE, " \
+                    "total INT NOT NULL)"
         self.cur.execute(statement)
 
     '''Functions to handle users and authentication'''
@@ -103,4 +103,6 @@ class DBHandler:
     """Trancating test database"""
 
     def trancate_table(self):
-        self.cur.execute("TRUNCATE TABLE users;")
+        self.cur.execute("DROP TABLE users;")
+        self.cur.execute("DROP TABLE products;")
+        self.cur.execute("DROP TABLE sales;")

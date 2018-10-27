@@ -22,7 +22,7 @@ class BaseTestCase(unittest.TestCase):
         handler = DBHandler(app.config['DATABASE_URL'])
         handler.create_user_table()
         handler.create_products_table()
-        handler.create_user_table()
+        handler.create_sales_table()
 
         self.user_data = {
 
