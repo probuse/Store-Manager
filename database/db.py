@@ -1,6 +1,4 @@
 import psycopg2
-from werkzeug.security import generate_password_hash, check_password_hash
-import psycopg2
 from urllib.parse import urlparse
 from werkzeug.security import generate_password_hash
 
@@ -25,33 +23,40 @@ class DBHandler:
     '''Create tables'''
 
     def create_user_table(self):
-        try:
-            statement = "CREATE TABLE IF NOT EXISTS users (" \
-                        "userId SERIAL PRIMARY KEY , " \
-                        "email varchar NOT NULL UNIQUE, " \
-                        "username varchar NOT NULL UNIQUE, " \
-                        "password varchar NOT NULL, " \
-                        "is_admin BOOL NOT NULL DEFAULT FALSE)"
-            self.cur.execute(statement)
-        except psycopg2.DatabaseError as e:
-            if self.conn:
-                self.conn.rollback()
-            raise e
+        statement = "CREATE TABLE IF NOT EXISTS users (" \
+                    "userId SERIAL PRIMARY KEY , " \
+                    "email varchar NOT NULL UNIQUE, " \
+                    "username varchar NOT NULL UNIQUE, " \
+                    "password varchar NOT NULL, " \
+                    "is_admin BOOL NOT NULL DEFAULT FALSE)"
+        self.cur.execute(statement)
+
+    def create_products_table(self):
+        statement = "CREATE TABLE IF NOT EXISTS products (" \
+                    "product_id SERIAL PRIMARY KEY , " \
+                    "username varchar NOT NULL UNIQUE, " \
+                    "product_name varchar NOT NULL UNIQUE, " \
+                    "unit_price INTEGER NOT NULL, " \
+                    "stock INTEGER NOT NULL)"
+        self.cur.execute(statement)
+
+    def create_sales_table(self):
+        statement = "CREATE TABLE IF NOT EXISTS sales (" \
+                    "sale_id SERIAL PRIMARY KEY , " \
+                    "product_id SERIAL PRIMARY KEY , " \
+                    "username varchar NOT NULL UNIQUE, " \
+                    "product_name varchar NOT NULL UNIQUE, " \
+                    "quantity INTEGER NOT NULL UNIQUE, " \
+                    "total INTEGER NOT NULL)"
+        self.cur.execute(statement)
 
     '''Functions to handle users and authentication'''
 
     def create_user(self, data):
-        try:
-            self.cur.execute("INSERT INTO users (email, username, password, is_admin) "
-                             "VALUES( '{}', '{}', '{}', '{}');".format
-                             (data['email'], data['username'],
-                              generate_password_hash(data['password'], method='sha256'), data['is_admin']))
-
-        except psycopg2.DatabaseError:
-            if self.conn:
-                self.conn.rollback()
-        finally:
-            self.conn.close()
+        self.cur.execute("INSERT INTO users (email, username, password, is_admin) "
+                         "VALUES( '{}', '{}', '{}', '{}');".format
+                         (data['email'], data['username'],
+                          generate_password_hash(data['password'], method='sha256'), data['is_admin']))
 
     def find_by_username(self, username):
         query = "SELECT * FROM users WHERE username=%s"
@@ -72,7 +77,6 @@ class DBHandler:
         user_list = []
         user_dict = {}
         for row in rows:
-
             user_dict['email'] = row[1]
             user_dict['username'] = row[2]
             user_dict['is_admin'] = row[4]
@@ -96,3 +100,7 @@ class DBHandler:
         row = self.cur.fetchone()
         return row
 
+    """Trancating test database"""
+
+    def trancate_table(self):
+        self.cur.execute("TRUNCATE TABLE users;")
