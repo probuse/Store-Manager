@@ -2,7 +2,6 @@ from app.registration import auth_v1
 from app_utils import empty_string_catcher, email_validator
 from flask import request, current_app as app, jsonify
 from app.models import User
-from database.db import DBHandler
 from flask_restful import Resource, Api
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -53,14 +52,11 @@ class Login(Resource):
         query = User.query_username(username)
         if not query:
             return {'message': 'The user does not exist, please register'}, 400
-
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.auth_user(username)
-
-        if not check_password_hash(user['password'], password):
+        test = list(query)[3]
+        if not check_password_hash(test, password):
             return {'message': 'Error: wrong password'}, 400
 
-        access_token = create_access_token(identity=user)
+        access_token = create_access_token(identity=query)
         return {'access_token': access_token}, 200
 
 
