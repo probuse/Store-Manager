@@ -1,16 +1,14 @@
-from app.api import auth_v1
+from app.registration import auth_v1
 from app_utils import empty_string_catcher, email_validator
-from flask import request, current_app as app
-
+from flask import request, current_app as app, jsonify
+from app.models import User
 from database.db import DBHandler
-
 from flask_restful import Resource, Api
-from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity)
 
-api = Api(auth_v1)
+API = Api(auth_v1)
 
 '''This class handles user registration'''
 
@@ -31,15 +29,14 @@ class Registration(Resource):
 
         if not email_validator(email):
             return {'message': 'Error: invalid email: Please check email'}, 400
-
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        if db_obj.find_by_username(username):
+        if User.query_username(username):
             return {'message': 'A user with that username already exists'}, 409
-        if db_obj.find_by_email(email):
+        if User.query_email(email):
             return {'message': 'A user with that email already exists'}, 409
         else:
-            db_obj.create_user(data)
-            return {'message': 'User successfully created'}, 201
+            user = User(email, username, password, is_admin)
+            user.insert_user()
+            return {'message': 'User successfully registered'}, 201
 
 
 class Login(Resource):
@@ -53,13 +50,11 @@ class Login(Resource):
         if not empty_string_catcher(username) or not empty_string_catcher(password):
             return {'message': 'please fill all fields'}, 400
 
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-
-        query = db_obj.fetch_by_param(
-            'users', 'username', data['username'])
+        query = User.query_username(username)
         if not query:
             return {'message': 'The user does not exist, please register'}, 400
 
+        db_obj = DBHandler(app.config['DATABASE_URL'])
         user = db_obj.auth_user(username)
 
         if not check_password_hash(user['password'], password):
@@ -69,5 +64,5 @@ class Login(Resource):
         return {'access_token': access_token}, 200
 
 
-api.add_resource(Registration, '/signup')
-api.add_resource(Login, '/login')
+API.add_resource(Registration, '/signup')
+API.add_resource(Login, '/login')

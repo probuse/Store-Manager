@@ -52,11 +52,10 @@ class DBHandler:
 
     '''Functions to handle users and authentication'''
 
-    def create_user(self, data):
+    def create_user(self, email, username, password, admin):
         self.cur.execute("INSERT INTO users (email, username, password, is_admin) "
                          "VALUES( '{}', '{}', '{}', '{}');".format
-                         (data['email'], data['username'],
-                          generate_password_hash(data['password'], method='sha256'), data['is_admin']))
+                         (email, username, password, admin))
 
     def find_by_username(self, username):
         query = "SELECT * FROM users WHERE username=%s"
@@ -89,16 +88,40 @@ class DBHandler:
         self.cur.execute(query, (username,))
         user = self.cur.fetchone()
         userDict = {"username": user[2], "password": user[3], "is_admin": user[4]}
-        print(userDict)
         return userDict
 
-    def fetch_by_param(self, table_name, column, param):
+    def fetch_by_param(self, table_name, column, value):
         """Fetches a single a parameter from a specific table and column"""
         query = "SELECT * FROM {} WHERE {} = '{}'".format(
-            table_name, column, param)
+            table_name, column, value)
         self.cur.execute(query)
         row = self.cur.fetchone()
         return row
+
+    '''Functions to handle Products'''
+
+    def create_product(self, username, product_name, unit_price, stock):
+        self.cur.execute("INSERT INTO products (username, product_name, unit_price, stock) "
+                         "VALUES( '{}', '{}', '{}', '{}');".format
+                         (username, product_name, unit_price, stock))
+
+
+    '''Function to get all products'''
+    def view_all_products(self):
+        statement = "SELECT product_name, unit_price, stock FROM products;"
+        self.cur.execute(statement)
+        rows = self.cur.fetchall()
+        product_list = []
+        product_dict = {}
+        for row in rows:
+            product_dict['product_name'] = row[0]
+            product_dict['unit_price'] = row[1]
+            product_dict['stock'] = row[2]
+            product_list.append(product_dict)
+            product_dict = {}
+        return product_list
+
+        return rows
 
     """Trancating test database"""
 
