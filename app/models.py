@@ -56,8 +56,7 @@ class User:
 
 
 class Product:
-    def __init__(self, product_id, username, product_name, unit_price, stock):
-        self.product_id = product_id
+    def __init__(self, username, product_name, unit_price, stock):
         self.username = username
         self.product_name = product_name
         self.unit_price = unit_price
@@ -68,7 +67,7 @@ class Product:
         return db_obj
 
     def insert_product(self):
-        response = User.database_url().create_product(self.username, self.product_name, self.unit_price, self.stock)
+        response = Product.database_url().create_product(self.username, self.product_name, self.unit_price, self.stock)
 
         if response is None:
             return False
@@ -107,7 +106,7 @@ class Sale:
 
     def insert_sale(self):
         sale_response = Sale.database_url().create_sale(self.product_id,
-                                                           self.username, self.product_name, self.quantity, self.total)
+                                                        self.username, self.product_name, self.quantity, self.total)
 
         if sale_response is None:
             return False
