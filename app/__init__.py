@@ -1,6 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, current_app
 from Instance.config import DevelopmentConfig
-from app.api import *
+from app.registration import auth_v1
+from app.products import apcn_v1
+from app.sales import apsn_v1
 from flask_jwt_extended import JWTManager
 import datetime
 
@@ -19,5 +21,7 @@ def create_app():
         return response
 
     app.register_blueprint(auth_v1)
+    app.register_blueprint(apcn_v1)
+    app.register_blueprint(apsn_v1)
 
     return app
