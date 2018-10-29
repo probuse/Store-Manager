@@ -91,6 +91,14 @@ class Product:
                 'stock': response[4]
             }
 
+    def delete_single_product(product_id):
+        response = Product.database_url().delete_by_param('products', 'product_id', product_id)
+
+        if response is None:
+            return False
+        else:
+            return True
+
 
 class Sale:
     def __init__(self, product_id, username, product_name, quantity, total):

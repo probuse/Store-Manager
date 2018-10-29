@@ -36,5 +36,10 @@ class Products(Resource):
         prod.insert_product()
         return {'message': 'product created'}, 201
 
+    def delete(self, product_id):
+        prod_id = Product.delete_single_product(product_id)
+        return {'message': 'Record successfully deleted'}, 200
+
+
 
 API.add_resource(Products, '/products', '/products/<int:product_id>')

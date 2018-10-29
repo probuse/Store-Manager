@@ -96,6 +96,12 @@ class DBHandler:
         row = self.cur.fetchone()
         return row
 
+    def delete_by_param(self, table_name, column, value):
+        """Fetches a single a parameter from a specific table and column"""
+        query = "DELETE FROM {} WHERE {} = '{}'".format(
+            table_name, column, value)
+        self.cur.execute(query)
+
     '''Functions to handle Products'''
 
     def create_product(self, username, product_name, unit_price, stock):
