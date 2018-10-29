@@ -2,6 +2,8 @@ from database.db import DBHandler
 from flask import current_app as app
 import re
 from werkzeug.security import check_password_hash
+
+
 # db_obj = DBHandler(app.config['DATABASE_URL'])
 
 class User:
@@ -84,9 +86,48 @@ class Product:
             return False
         else:
             return {
-                'username':response[1],
+                'username': response[1],
                 'product_name': response[2],
                 'unitprice': response[3],
-                'stock': response[3]
+                'stock': response[4]
             }
 
+
+class Sale:
+    def __init__(self, product_id, username, product_name, quantity, total):
+        self.product_id = product_id
+        self.username = username
+        self.product_name = product_name
+        self.quantity = quantity
+        self.total = total
+
+    def database_url():
+        db_obj = DBHandler(app.config['DATABASE_URL'])
+        return db_obj
+
+    def insert_sale(self):
+        sale_response = Sale.database_url().create_sale(self.product_id,
+                                                           self.username, self.product_name, self.quantity, self.total)
+
+        if sale_response is None:
+            return False
+        else:
+            return sale_response
+
+    def view_sales():
+        response = Sale.database_url().view_all_sales()
+        return response
+
+    def view_single_product(sale_id):
+        sale_response = Sale.database_url().fetch_by_param('sales', 'sale_id', sale_id)
+
+        if sale_response is None:
+            return False
+        else:
+            return {
+                'sale_id': sale_id[1],
+                'username': sale_response[1],
+                'product_name': sale_response[2],
+                'quantity': sale_response[3],
+                'total': sale_response[3]
+            }

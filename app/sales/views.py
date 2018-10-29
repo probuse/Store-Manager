@@ -1,12 +1,15 @@
-# from flask import request
-# from flask_restful import Resource, Api
-# from database.model import Salepoints
-# from app.api import apsn_v1
-# from .products import products_list
-#
-# sales_list = []
-#
-# API = Api(apsn_v1)
+from app.sales import apsn_v1
+from app_utils import empty_string_catcher, email_validator
+from flask import request, current_app as app, jsonify
+from app.models import Sale
+from database.db import DBHandler
+from flask_restful import Resource, Api
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity)
+
+
+API = Api(apsn_v1)
 
 
 class Sales(Resource):
@@ -27,24 +30,17 @@ class Sales(Resource):
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
-
-        try:
-            for product_list in products_list:
-                data = request.get_json()
-                sale_id = len(sales_list) + 1
-                product_id = data['product_id']
-                product_name = product_list.product_name
-                unit_price = product_list.unit_price
-                quantity = data['quantity']
-                total = data['quantity'] * product_list.unit_price
-                if not isinstance(product_id, int) or not isinstance(quantity, int):
-                    return {'message': 'Error:Invalid value added, please review'}, 400
-                if product_list.product_id == product_id:
-                    sales_list.append(Salepoints(sale_id, product_id, product_name, unit_price, quantity, total))
-            return {'message': 'sale made'}, 201
-        except Exception as e:
-            print(e)
-            return {'message': "Please review the columns"}, 400
+        data = request.get_json()
+        product_id = data['product_id']
+        username = data['username']
+        product_name = data['product_name']
+        quantity = data['quantity']
+        total = data['total']
+        # if not isinstance(product_id, int) or not isinstance(quantity, int):
+        #     return {'message': 'Error:Invalid value added, please review'}, 400
+        sale_items = Sale(product_id, username, product_name, quantity, total)
+        sale_items.insert_sale()
+        return {'message': 'product created'}, 201
 
 
 API.add_resource(Sales, '/sales', '/sales/<int:sale_id>')

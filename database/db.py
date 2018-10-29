@@ -121,21 +121,32 @@ class DBHandler:
             product_dict = {}
         return product_list
 
-    def view_product_by_id(self, product_id):
-        statement = "SELECT * FROM products where product_id=%s;"
-        self.cur.execute(statement, (product_id,))
+
+    """Functions to handle Sales"""
+
+    """Function to create a sale"""
+    def create_sale(self, product_id, username, product_name, quantity, total):
+        self.cur.execute("INSERT INTO sales (product_id, username, product_name, quantity, total) "
+                         "VALUES( '{}', '{}', '{}', '{}', '{}');".format
+                         (product_id, username, product_name, quantity, total))
+
+
+    '''Function to get all sales'''
+    def view_all_sales(self):
+        statement = "SELECT product_id, username, product_name, quantity, total FROM sales;"
+        self.cur.execute(statement)
         rows = self.cur.fetchall()
-        product_list = []
-        product_dict = {}
+        sales_list = []
+        sales_dict = {}
         for row in rows:
-            product_dict['product_id'] = row[0]
-            product_dict['username'] = row[1]
-            product_dict['product_name'] = row[2]
-            product_dict['unit_price'] = row[3]
-            product_dict['stock'] = row[4]
-            product_list.append(product_dict)
-            product_dict = {}
-        return product_list
+            sales_dict['product_id'] = row[0]
+            sales_dict['username'] = row[1]
+            sales_dict['product_name'] = row[2]
+            sales_dict['quantity'] = row[3]
+            sales_dict['total'] = row[4]
+            sales_dict.append(sales_dict)
+            sales_dict = {}
+        return sales_list
 
 
 
