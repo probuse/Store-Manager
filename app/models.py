@@ -13,10 +13,13 @@ class User:
         self.password = password
         self.is_admin = is_admin
 
+    def database_url():
+        db_obj = DBHandler(app.config['DATABASE_URL'])
+        return db_obj
+
     def query_username(username):
         """Method to retrieve a username from the database"""
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.fetch_by_param('users', 'username', username)
+        user = User.database_url().fetch_by_param('users', 'username', username)
 
         if user is None:
             return False
@@ -26,8 +29,7 @@ class User:
     def query_email(email):
         """Method to retrieve a username from the database"""
 
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.fetch_by_param('users', 'email', email)
+        user = User.database_url().fetch_by_param('users', 'email', email)
 
         if user is None:
             return False
@@ -37,38 +39,34 @@ class User:
     def query_password(password):
         """Method to retrieve a username from the database"""
 
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.fetch_by_param('users', 'password', password)
+        user = User.database_url().fetch_by_param('users', 'password', password)
         if not check_password_hash(user['password'], password):
             return False
         return True
 
     def insert_user(self):
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.create_user(self.email, self.username, self.password, self.is_admin)
+        user = User.database_url().create_user(self.email, self.username, self.password, self.is_admin)
 
         if user is None:
             return False
         else:
             return user
 
-    def authenticate_user(self):
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        user = db_obj.auth_user(self.username)
-        print(user)
-        return user
-
 
 class Product:
-    def __init__(self, username, product_name, unit_price, stock):
+    def __init__(self, product_id, username, product_name, unit_price, stock):
+        self.product_id = product_id
         self.username = username
         self.product_name = product_name
         self.unit_price = unit_price
         self.stock = stock
 
-    def insert_product(self):
+    def database_url():
         db_obj = DBHandler(app.config['DATABASE_URL'])
-        response = db_obj.create_product(self.username, self.product_name, self.unit_price, self.stock)
+        return db_obj
+
+    def insert_product(self):
+        response = User.database_url().create_product(self.username, self.product_name, self.unit_price, self.stock)
 
         if response is None:
             return False
@@ -76,6 +74,19 @@ class Product:
             return response
 
     def view_products():
-        db_obj = DBHandler(app.config['DATABASE_URL'])
-        response = db_obj.view_all_products()
+        response = Product.database_url().view_all_products()
         return response
+
+    def view_single_product(product_id):
+        response = Product.database_url().fetch_by_param('products', 'product_id', product_id)
+
+        if response is None:
+            return False
+        else:
+            return {
+                'username':response[1],
+                'product_name': response[2],
+                'unitprice': response[3],
+                'stock': response[3]
+            }
+

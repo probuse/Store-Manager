@@ -1,7 +1,5 @@
 import psycopg2
 from urllib.parse import urlparse
-from werkzeug.security import generate_password_hash
-
 
 class DBHandler:
     def __init__(self, database_url):
@@ -34,7 +32,7 @@ class DBHandler:
     def create_products_table(self):
         statement = "CREATE TABLE IF NOT EXISTS products (" \
                     "product_id SERIAL PRIMARY KEY , " \
-                    "username varchar NOT NULL UNIQUE, " \
+                    "username varchar NOT NULL , " \
                     "product_name varchar NOT NULL UNIQUE, " \
                     "unit_price INT NOT NULL, " \
                     "stock INT NOT NULL)"
@@ -44,9 +42,9 @@ class DBHandler:
         statement = "CREATE TABLE IF NOT EXISTS sales (" \
                     "sale_id SERIAL PRIMARY KEY , " \
                     "product_id  INT NOT NULL , " \
-                    "username varchar NOT NULL UNIQUE, " \
-                    "product_name varchar NOT NULL UNIQUE, " \
-                    "quantity INT NOT NULL UNIQUE, " \
+                    "username varchar NOT NULL, " \
+                    "product_name varchar NOT NULL, " \
+                    "quantity INT NOT NULL, " \
                     "total INT NOT NULL)"
         self.cur.execute(statement)
 
@@ -108,20 +106,38 @@ class DBHandler:
 
     '''Function to get all products'''
     def view_all_products(self):
-        statement = "SELECT product_name, unit_price, stock FROM products;"
+        statement = "SELECT product_id, username, product_name, unit_price, stock FROM products;"
         self.cur.execute(statement)
         rows = self.cur.fetchall()
         product_list = []
         product_dict = {}
         for row in rows:
-            product_dict['product_name'] = row[0]
-            product_dict['unit_price'] = row[1]
-            product_dict['stock'] = row[2]
+            product_dict['product_id'] = row[0]
+            product_dict['username'] = row[1]
+            product_dict['product_name'] = row[2]
+            product_dict['unit_price'] = row[3]
+            product_dict['stock'] = row[4]
             product_list.append(product_dict)
             product_dict = {}
         return product_list
 
-        return rows
+    def view_product_by_id(self, product_id):
+        statement = "SELECT * FROM products where product_id=%s;"
+        self.cur.execute(statement, (product_id,))
+        rows = self.cur.fetchall()
+        product_list = []
+        product_dict = {}
+        for row in rows:
+            product_dict['product_id'] = row[0]
+            product_dict['username'] = row[1]
+            product_dict['product_name'] = row[2]
+            product_dict['unit_price'] = row[3]
+            product_dict['stock'] = row[4]
+            product_list.append(product_dict)
+            product_dict = {}
+        return product_list
+
+
 
     """Trancating test database"""
 

@@ -14,17 +14,12 @@ API = Api(apcn_v1)
 class Products(Resource):
     def get(self, product_id=0):
         """This function returns a list of all products in the inventory or a single product"""
-        # all_products = []
-        # if (product_id):
-        #     single_product = [product_list.to_json_id() for product_list in products_list
-        #                       if product_list.product_id == product_id]
-        #     if not single_product:
-        #         return {'message': 'product not in inventory'}, 200
-        #     else:
-        #         return single_product, 200
-        # else:
-        prod = Product.view_products()
-        return prod
+        if (product_id):
+            prod_id = Product.view_single_product(product_id)
+            return prod_id
+        else:
+            prod = Product.view_products()
+            return prod
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""

@@ -8,7 +8,6 @@ import datetime
 
 def create_app():
     app = Flask(__name__)
-
     app.config.from_object(DevelopmentConfig)
     app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=100)

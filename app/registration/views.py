@@ -1,11 +1,11 @@
 from app.registration import auth_v1
 from app_utils import empty_string_catcher, email_validator
-from flask import request, current_app as app, jsonify
+from flask import request
 from app.models import User
 from flask_restful import Resource, Api
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity)
+from flask_jwt_extended import (create_access_token)
 
 API = Api(auth_v1)
 
@@ -36,7 +36,7 @@ class Registration(Resource):
             user = User(email, username, password, is_admin)
             user.insert_user()
             return {'message': 'User successfully registered'}, 201
-
+9
 
 class Login(Resource):
     def post(self):
@@ -52,8 +52,8 @@ class Login(Resource):
         query = User.query_username(username)
         if not query:
             return {'message': 'The user does not exist, please register'}, 400
-        test = list(query)[3]
-        if not check_password_hash(test, password):
+        pswd = list(query)[3]
+        if not check_password_hash(pswd, password):
             return {'message': 'Error: wrong password'}, 400
 
         access_token = create_access_token(identity=query)
