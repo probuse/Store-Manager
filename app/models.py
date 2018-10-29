@@ -117,14 +117,13 @@ class Sale:
         response = Sale.database_url().view_all_sales()
         return response
 
-    def view_single_product(sale_id):
+    def view_single_sale(sale_id):
         sale_response = Sale.database_url().fetch_by_param('sales', 'sale_id', sale_id)
 
         if sale_response is None:
             return False
         else:
             return {
-                'sale_id': sale_id[1],
                 'username': sale_response[1],
                 'product_name': sale_response[2],
                 'quantity': sale_response[3],

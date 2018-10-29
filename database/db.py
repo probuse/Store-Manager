@@ -144,7 +144,7 @@ class DBHandler:
             sales_dict['product_name'] = row[2]
             sales_dict['quantity'] = row[3]
             sales_dict['total'] = row[4]
-            sales_dict.append(sales_dict)
+            sales_list.append(sales_dict)
             sales_dict = {}
         return sales_list
 

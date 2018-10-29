@@ -16,17 +16,12 @@ class Sales(Resource):
     """This function returns a list of all products in the inventory"""
 
     def get(self, sale_id=0):
-        all_sales = []
         if (sale_id):
-            single_sale = [sale_list.to_json_id() for sale_list in sales_list if sale_list.sale_id == sale_id]
-            if not single_sale:
-                return {'message': 'sale not in inventory'}, 200
-            else:
-                return single_sale, 200
+            sal_id = Sale.view_single_sale(sale_id)
+            return sal_id
         else:
-            for sale_list in sales_list:
-                all_sales.append(sale_list.to_json())
-            return all_sales, 200
+            sal = Sale.view_sales()
+            return sal
 
     def post(self):
         """This function lets the administrator add a new product to the inventory"""
@@ -40,7 +35,7 @@ class Sales(Resource):
         #     return {'message': 'Error:Invalid value added, please review'}, 400
         sale_items = Sale(product_id, username, product_name, quantity, total)
         sale_items.insert_sale()
-        return {'message': 'product created'}, 201
+        return {'message': 'sale created'}, 201
 
 
 API.add_resource(Sales, '/sales', '/sales/<int:sale_id>')
